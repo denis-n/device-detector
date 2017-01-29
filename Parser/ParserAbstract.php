@@ -274,13 +274,15 @@ abstract class ParserAbstract
      */
     public function setCache($cache)
     {
-        if ($cache instanceof Cache ||
+        $this->cache = $cache;
+
+        /*if ($cache instanceof Cache ||
             (class_exists('\Doctrine\Common\Cache\CacheProvider') && $cache instanceof \Doctrine\Common\Cache\CacheProvider)) {
             $this->cache = $cache;
             return;
         }
 
-        throw new \Exception('Cache not supported');
+        throw new \Exception('Cache not supported');*/
     }
 
     /**

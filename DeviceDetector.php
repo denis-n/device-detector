@@ -229,7 +229,14 @@ class DeviceDetector
      */
     public function addClientParser($parser)
     {
-        if (is_string($parser) && class_exists('DeviceDetector\\Parser\\Client\\' . $parser)) {
+        $className = 'DeviceDetector\\Parser\\Client\\' . $parser;
+        $parser = new $className();
+
+        $this->clientParsers[] = $parser;
+        self::$clientTypes[] = $parser->getName();
+
+
+        /*if (is_string($parser) && class_exists('DeviceDetector\\Parser\\Client\\' . $parser)) {
             $className = 'DeviceDetector\\Parser\\Client\\' . $parser;
             $parser = new $className();
         }
@@ -240,7 +247,7 @@ class DeviceDetector
             return;
         }
 
-        throw new \Exception('client parser not found');
+        throw new \Exception('client parser not found');*/
     }
 
     public function getClientParsers()
@@ -254,7 +261,12 @@ class DeviceDetector
      */
     public function addDeviceParser($parser)
     {
-        if (is_string($parser) && class_exists('DeviceDetector\\Parser\\Device\\' . $parser)) {
+        $className = 'DeviceDetector\\Parser\\Device\\' . $parser;
+        $parser = new $className();
+        $this->deviceParsers[] = $parser;
+
+
+        /*if (is_string($parser) && class_exists('DeviceDetector\\Parser\\Device\\' . $parser)) {
             $className = 'DeviceDetector\\Parser\\Device\\' . $parser;
             $parser = new $className();
         }
@@ -264,7 +276,7 @@ class DeviceDetector
             return;
         }
 
-        throw new \Exception('device parser not found');
+        throw new \Exception('device parser not found');*/
     }
 
     public function getDeviceParsers()
@@ -804,14 +816,16 @@ class DeviceDetector
      */
     public function setCache($cache)
     {
-        if ($cache instanceof Cache ||
+        $this->cache = $cache;
+
+        /*if ($cache instanceof Cache ||
             (class_exists('\Doctrine\Common\Cache\CacheProvider') && $cache instanceof \Doctrine\Common\Cache\CacheProvider)
         ) {
             $this->cache = $cache;
             return;
         }
 
-        throw new \Exception('Cache not supported');
+        throw new \Exception('Cache not supported');*/
     }
 
     /**
